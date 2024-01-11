@@ -6,11 +6,17 @@ import { ConfigModule } from '@nestjs/config'
 import * as Joi from 'joi'
 import { AppResolver } from './app.resolver'
 import { AuthModule } from './auth/auth.module'
+import { PrismaModule } from './prisma/prisma.module'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
+        POSTGRES_HOST: Joi.string().required(),
+        POSTGRES_PORT: Joi.number().required(),
+        POSTGRES_NAME: Joi.string().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required(),
         PORT: Joi.number().default(3000),
         DATABASE_URL: Joi.string().required(),
         GOOGLE_CLIENT_ID: Joi.string().required(),
@@ -29,6 +35,8 @@ import { AuthModule } from './auth/auth.module'
     }),
 
     AuthModule,
+
+    PrismaModule,
   ],
   providers: [AppResolver],
 })
