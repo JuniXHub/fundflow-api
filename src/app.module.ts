@@ -7,6 +7,7 @@ import * as Joi from 'joi'
 import { AppResolver } from './app.resolver'
 import { AuthModule } from './auth/auth.module'
 import { PrismaModule } from './prisma/prisma.module'
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -37,6 +38,8 @@ import { PrismaModule } from './prisma/prisma.module'
     AuthModule,
 
     PrismaModule,
+
+    UserModule,
   ],
   providers: [AppResolver],
 })
