@@ -20,14 +20,13 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js', 'src/@generated/**/*'],
   rules: {
-    'indent': 'off',
-    '@typescript-eslint/indent': ['error', 2],
     'prettier/prettier': 'error',
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/semi': 'off',
     'import/prefer-default-export': 'off',
     'class-methods-use-this': 'off',
-    'object-curly-newline': ['error', { multiline: true, minProperties: 6 }],
+    'object-curly-newline': ['error', { 'multiline': true, 'minProperties': 6 }],
+    '@typescript-eslint/indent': ['error', 2, { 'ignoredNodes': ['PropertyDefinition'] }]
   },
 }
