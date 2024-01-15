@@ -1,21 +1,39 @@
 import { Controller, Get, HttpStatus, Res, UseGuards } from '@nestjs/common'
 import { Response } from 'express'
-import { GoogleOauthGuard } from '@app/common'
+import { CurrentUser, EnvironmentVariables, GoogleOauthGuard, UserPayload } from '@app/common'
+import { ConfigService } from '@nestjs/config'
 import { AuthService } from './auth.service'
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private readonly configService: ConfigService<EnvironmentVariables>,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get('google')
   @UseGuards(GoogleOauthGuard)
-  async auth() {
-    return HttpStatus.OK
+  async auth(@Res() res: Response) {
+    return res.status(HttpStatus.OK)
   }
 
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
-  async googleAuthCallback(@Res() res: Response) {
-    return res.json({ msg: 'success' })
+  async googleAuthCallback(@CurrentUser() data: UserPayload, @Res() res: Response) {
+    const { accessToken, refreshToken } = await this.authService.oAuthSignIn(data)
+
+    res.cookie('access_token', accessToken, {
+      secure: true,
+      httpOnly: true,
+      maxAge: 10 * 60 * 1000,
+    }) // Cookie valid for 10 minutes
+
+    res.cookie('refresh_token', refreshToken, {
+      secure: true,
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    }) // Cookie valid for 7 days
+
+    res.redirect(this.configService.get<string>('CLIENT_URL'))
   }
 }
