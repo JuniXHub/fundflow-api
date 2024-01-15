@@ -5,7 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin','prettier'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -18,7 +18,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js','src/@generated/**/*'],
+  ignorePatterns: ['.eslintrc.js', 'src/@generated/**/*'],
   rules: {
     'prettier/prettier': 'error',
     '@typescript-eslint/interface-name-prefix': 'off',
@@ -29,4 +29,4 @@ module.exports = {
     'object-curly-newline': ['error', { 'multiline': true, 'minProperties': 6 }],
     '@typescript-eslint/indent': ['error', 2, { 'ignoredNodes': ['PropertyDefinition'] }]
   },
-};
+}
