@@ -9,4 +9,7 @@ export interface EnvironmentVariables {
   GOOGLE_CLIENT_ID: string
   GOOGLE_CLIENT_SECRET: string
   GOOGLE_REDIRECT_URL: string
+  CLIENT_URL: string
+  JWT_ACCESS_SECRET: string
+  JWT_REFRESH_SECRET: string
 }

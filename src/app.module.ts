@@ -7,7 +7,7 @@ import * as Joi from 'joi'
 import { AppResolver } from './app.resolver'
 import { AuthModule } from './auth/auth.module'
 import { PrismaModule } from './prisma/prisma.module'
-import { UserModule } from './user/user.module';
+import { UserModule } from './user/user.module'
 
 @Module({
   imports: [
@@ -18,11 +18,19 @@ import { UserModule } from './user/user.module';
         POSTGRES_NAME: Joi.string().required(),
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_PASSWORD: Joi.string().required(),
-        PORT: Joi.number().default(3000),
+
         DATABASE_URL: Joi.string().required(),
+
+        PORT: Joi.number().default(3000),
+
         GOOGLE_CLIENT_ID: Joi.string().required(),
         GOOGLE_CLIENT_SECRET: Joi.string().required(),
         GOOGLE_REDIRECT_URL: Joi.string().required(),
+
+        CLIENT_URL: Joi.string().required(),
+
+        JWT_ACCESS_SECRET: Joi.string().required(),
+        JWT_REFRESH_SECRET: Joi.string().required(),
       }),
       isGlobal: true,
       expandVariables: true,
