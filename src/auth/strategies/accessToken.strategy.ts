@@ -1,4 +1,4 @@
-import { EnvironmentVariables, UserPayload } from '@app/common'
+import { EnvironmentVariables, JwtPayload } from '@app/common'
 import { Inject } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
@@ -16,7 +16,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
     })
   }
 
-  validate(payload: UserPayload) {
+  validate(payload: JwtPayload) {
     return payload
   }
 }
