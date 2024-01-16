@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import { Strategy, VerifyCallback, Profile } from 'passport-google-oauth20'
@@ -6,7 +6,10 @@ import { EnvironmentVariables, UserPayload } from '@app/common'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor(private readonly configService: ConfigService<EnvironmentVariables>) {
+  constructor(
+    @Inject(ConfigService)
+    private readonly configService: ConfigService<EnvironmentVariables>,
+  ) {
     super({
       clientID: configService.get<string>('GOOGLE_CLIENT_ID'),
       clientSecret: configService.get<string>('GOOGLE_CLIENT_SECRET'),

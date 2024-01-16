@@ -3,9 +3,13 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { Request } from 'express'
 import { EnvironmentVariables, UserPayload } from '@app/common'
 import { ConfigService } from '@nestjs/config'
+import { Inject } from '@nestjs/common'
 
 export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
-  constructor(private readonly configService: ConfigService<EnvironmentVariables>) {
+  constructor(
+    @Inject(ConfigService)
+    private readonly configService: ConfigService<EnvironmentVariables>,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
