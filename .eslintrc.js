@@ -26,7 +26,12 @@ module.exports = {
     '@typescript-eslint/semi': 'off',
     'import/prefer-default-export': 'off',
     'class-methods-use-this': 'off',
-    'object-curly-newline': ['error', { 'multiline': true, 'minProperties': 6 }],
-    '@typescript-eslint/indent': ['error', 2, { 'ignoredNodes': ['PropertyDefinition'] }]
+    'object-curly-newline': [
+      'error',
+      {
+        ObjectPattern: { multiline: true },
+      },
+    ],
+    '@typescript-eslint/indent': 'off',
   },
 }

@@ -4,8 +4,8 @@ import {
   CurrentUser,
   EnvironmentVariables,
   GoogleOauthGuard,
+  ProviderPayload,
   Public,
-  UserPayload,
 } from '@app/common'
 import { ConfigService } from '@nestjs/config'
 import { AuthService } from './auth.service'
@@ -26,7 +26,10 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
-  async googleAuthCallback(@CurrentUser() data: UserPayload, @Res() res: Response): Promise<void> {
+  async googleAuthCallback(
+    @CurrentUser() data: ProviderPayload,
+    @Res() res: Response,
+  ): Promise<void> {
     const { accessToken, refreshToken } = await this.authService.oAuthSignIn(data)
 
     res.cookie('access_token', accessToken, {
