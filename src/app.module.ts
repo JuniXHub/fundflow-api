@@ -3,6 +3,8 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { ConfigModule } from '@nestjs/config'
+import { AccessTokenGuard } from '@app/common'
+import { APP_GUARD } from '@nestjs/core'
 import * as Joi from 'joi'
 import { AppResolver } from './app.resolver'
 import { AuthModule } from './auth/auth.module'
@@ -49,6 +51,12 @@ import { UserModule } from './user/user.module'
 
     UserModule,
   ],
-  providers: [AppResolver],
+  providers: [
+    AppResolver,
+    {
+      provide: APP_GUARD,
+      useClass: AccessTokenGuard,
+    },
+  ],
 })
 export class AppModule {}

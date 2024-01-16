@@ -1,10 +1,17 @@
 import { Controller, Get, HttpStatus, Res, UseGuards } from '@nestjs/common'
 import { Response } from 'express'
-import { CurrentUser, EnvironmentVariables, GoogleOauthGuard, UserPayload } from '@app/common'
+import {
+  CurrentUser,
+  EnvironmentVariables,
+  GoogleOauthGuard,
+  Public,
+  UserPayload,
+} from '@app/common'
 import { ConfigService } from '@nestjs/config'
 import { AuthService } from './auth.service'
 
 @Controller('auth')
+@Public()
 export class AuthController {
   constructor(
     private readonly configService: ConfigService<EnvironmentVariables>,
@@ -13,13 +20,13 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(GoogleOauthGuard)
-  async auth(@Res() res: Response) {
-    return res.status(HttpStatus.OK)
+  async auth(@Res() res: Response): Promise<void> {
+    res.status(HttpStatus.OK)
   }
 
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
-  async googleAuthCallback(@CurrentUser() data: UserPayload, @Res() res: Response) {
+  async googleAuthCallback(@CurrentUser() data: UserPayload, @Res() res: Response): Promise<void> {
     const { accessToken, refreshToken } = await this.authService.oAuthSignIn(data)
 
     res.cookie('access_token', accessToken, {
