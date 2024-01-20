@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt'
 import { Injectable } from '@nestjs/common'
-import { EnvironmentVariables, Tokens, UserPayload } from '@app/common'
+import { EnvironmentVariables, Tokens, ProviderPayload } from '@app/common'
 import { UserService } from '@app/user/user.service'
 import { ConfigService } from '@nestjs/config'
 
@@ -12,7 +12,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async oAuthSignIn(data: UserPayload): Promise<Tokens> {
+  async oAuthSignIn(data: ProviderPayload): Promise<Tokens> {
     const user = await this.userService.findByEmail(data.email)
 
     if (!user) {
@@ -22,7 +22,7 @@ export class AuthService {
     return this.generateTokens(user.id, user.email)
   }
 
-  private async oAuthSignUp(data: UserPayload): Promise<Tokens> {
+  private async oAuthSignUp(data: ProviderPayload): Promise<Tokens> {
     const user = await this.userService.create(data)
     return this.generateTokens(user.id, user.email)
   }
@@ -36,7 +36,7 @@ export class AuthService {
     return { accessToken, refreshToken }
   }
 
-  private async generateToken(
+  async generateToken(
     sub: number,
     email: string,
     expiresIn?: string | number,
