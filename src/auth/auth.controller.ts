@@ -20,13 +20,13 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(GoogleOauthGuard)
-  async auth(@Res() res: Response): Promise<void> {
+  public async auth(@Res() res: Response): Promise<void> {
     res.status(HttpStatus.OK)
   }
 
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
-  async googleAuthCallback(
+  public async googleAuthCallback(
     @CurrentUser() data: ProviderPayload,
     @Res() res: Response,
   ): Promise<void> {

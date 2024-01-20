@@ -12,7 +12,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async oAuthSignIn(data: ProviderPayload): Promise<Tokens> {
+  public async oAuthSignIn(data: ProviderPayload): Promise<Tokens> {
     const user = await this.userService.findByEmail(data.email)
 
     if (!user) {
@@ -36,7 +36,7 @@ export class AuthService {
     return { accessToken, refreshToken }
   }
 
-  async generateToken(
+  public async generateToken(
     sub: number,
     email: string,
     expiresIn?: string | number,

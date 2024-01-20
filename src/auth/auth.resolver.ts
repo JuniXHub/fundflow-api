@@ -9,7 +9,7 @@ export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
   @Mutation(() => ResponseMessage)
-  logout(@Context('res') res: Response): ResponseMessage {
+  public logout(@Context('res') res: Response): ResponseMessage {
     res.clearCookie('access_token')
     res.clearCookie('refresh_token')
 
@@ -19,7 +19,7 @@ export class AuthResolver {
   @Public()
   @UseGuards(RefreshTokenGuard)
   @Mutation(() => ResponseMessage)
-  async revokeAccessToken(
+  public async revokeAccessToken(
     @Context('res') res: Response,
     @CurrentUser() { id, email }: JwtPayload,
   ): Promise<ResponseMessage> {
