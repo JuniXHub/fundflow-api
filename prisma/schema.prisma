@@ -7,7 +7,7 @@ generator client {
 
 generator prisma-nestjs-graphql {
   provider = "prisma-nestjs-graphql"
-  output = "../src/@generated"
+  output   = "../src/@generated"
 }
 
 datasource db {
@@ -15,10 +15,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Roles {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
 model User {
-  id         Int      @id @default(autoincrement())
-  email      String   @unique
-  firstName  String? 
-  lastName   String?
-  picture    String?
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  firstName String?
+  lastName  String?
+  picture   String?
+  roles     Role[]
+}
+
+model Workspace {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdOn DateTime @default(now())
+  roles     Role[]
+}
+
+model Role {
+  id          Int       @id @default(autoincrement())
+  type        Roles
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  workspaceId Int
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
 }
