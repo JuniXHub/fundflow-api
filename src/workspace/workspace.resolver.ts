@@ -1,5 +1,6 @@
+import { Roles } from '@prisma/client'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
-import { CurrentUser } from '@app/common'
+import { CurrentUser, SetRoles } from '@app/common'
 import { Workspace } from '@app/@generated/workspace/workspace.model'
 import { WorkspaceService } from './workspace.service'
 
@@ -13,5 +14,11 @@ export class WorkspaceResolver {
     @CurrentUser('sub') userId: number,
   ): Promise<Workspace> {
     return this.workspaceService.create(name, userId)
+  }
+
+  @SetRoles(Roles.OWNER)
+  @Mutation(() => Workspace)
+  public async deleteWorkspace(@Args('workspaceId') id: number): Promise<Workspace> {
+    return this.workspaceService.delete(id)
   }
 }
