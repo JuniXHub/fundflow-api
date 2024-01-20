@@ -1,26 +1,26 @@
-import { UserCreateInput } from '@app/@generated/user/user-create.input'
-import { UserUpdateInput } from '@app/@generated/user/user-update.input'
+import { UserCreateWithoutRolesInput } from '@app/@generated/user/user-create-without-roles.input'
+import { UserUpdateWithoutRolesInput } from '@app/@generated/user/user-update-without-roles.input'
+import { User } from '@app/@generated/user/user.model'
 import { PrismaService } from '@app/prisma/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { User } from '@prisma/client'
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findByEmail(email: string): Promise<User> {
+  public async findByEmail(email: string): Promise<User> {
     return this.prisma.user.findUnique({ where: { email } })
   }
 
-  async findById(id: number): Promise<User> {
+  public async findById(id: number): Promise<User> {
     return this.prisma.user.findUnique({ where: { id } })
   }
 
-  async create(data: UserCreateInput): Promise<User> {
+  public async create(data: UserCreateWithoutRolesInput): Promise<User> {
     return this.prisma.user.create({ data })
   }
 
-  async update(data: UserUpdateInput, id: number): Promise<User> {
+  public async update(data: UserUpdateWithoutRolesInput, id: number): Promise<User> {
     return this.prisma.user.update({ data, where: { id } })
   }
 }

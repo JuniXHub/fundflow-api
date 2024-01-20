@@ -11,6 +11,8 @@ import { AppResolver } from './app.resolver'
 import { AuthModule } from './auth/auth.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { UserModule } from './user/user.module'
+import { WorkspaceModule } from './workspace/workspace.module'
+import { RoleModule } from './role/role.module'
 
 @Module({
   imports: [
@@ -52,6 +54,10 @@ import { UserModule } from './user/user.module'
     PrismaModule,
 
     UserModule,
+
+    WorkspaceModule,
+
+    RoleModule,
   ],
   providers: [
     AppResolver,

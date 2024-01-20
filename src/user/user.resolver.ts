@@ -8,7 +8,7 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query(() => User)
-  async getCurrentUser(@CurrentUser('sub') id: number): Promise<User> {
+  public async getCurrentUser(@CurrentUser('sub') id: number): Promise<User> {
     return this.userService.findById(id)
   }
 }
