@@ -8,6 +8,10 @@ import { Injectable } from '@nestjs/common'
 export class RoleService {
   constructor(private readonly prisma: PrismaService) {}
 
+  public async get(userId: number, workspaceId: number): Promise<Role> {
+    return this.prisma.role.findFirst({ where: { userId, workspaceId } })
+  }
+
   public async create(data: RoleCreateInput): Promise<Role> {
     return this.prisma.role.create({ data })
   }
