@@ -32,4 +32,8 @@ export class WorkspaceService {
   public async delete(id: number): Promise<Workspace> {
     return this.prisma.workspace.delete({ where: { id } })
   }
+
+  public async getAll(userId: number): Promise<Workspace[]> {
+    return this.prisma.workspace.findMany({ where: { roles: { some: { userId } } } })
+  }
 }
