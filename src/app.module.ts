@@ -16,6 +16,7 @@ import { RoleModule } from './role/role.module'
 import { CurrencyModule } from './currency/currency.module'
 import { AccountModule } from './account/account.module'
 import { IconModule } from './icon/icon.module'
+import { CategoryModule } from './category/category.module'
 
 @Module({
   imports: [
@@ -67,6 +68,8 @@ import { IconModule } from './icon/icon.module'
     AccountModule,
 
     IconModule,
+
+    CategoryModule,
   ],
   providers: [
     AppResolver,

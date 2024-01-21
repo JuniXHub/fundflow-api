@@ -1,6 +1,7 @@
 export * from './icon.schema'
 export * from './tokens.schema'
 export * from './account.schema'
+export * from './category.schema'
 export * from './workspace.schema'
 export * from './jwt-payload.schema'
 export * from './provider-payload.schema'
