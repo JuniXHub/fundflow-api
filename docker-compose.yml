@@ -1,0 +1,11 @@
+version: '3.5'
+
+services: 
+  fundflow-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fundflow-api
+    ports:
+      - '8080:8080'
+      
