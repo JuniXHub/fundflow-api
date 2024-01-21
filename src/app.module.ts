@@ -13,6 +13,7 @@ import { PrismaModule } from './prisma/prisma.module'
 import { UserModule } from './user/user.module'
 import { WorkspaceModule } from './workspace/workspace.module'
 import { RoleModule } from './role/role.module'
+import { CurrencyModule } from './currency/currency.module'
 
 @Module({
   imports: [
@@ -58,6 +59,8 @@ import { RoleModule } from './role/role.module'
     WorkspaceModule,
 
     RoleModule,
+
+    CurrencyModule,
   ],
   providers: [
     AppResolver,
