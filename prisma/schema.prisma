@@ -45,3 +45,9 @@ model Role {
   workspaceId Int
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }
+
+model Currency {
+  num  Int    @unique
+  code String @unique
+  name String
+}
