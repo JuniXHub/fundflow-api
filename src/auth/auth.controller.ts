@@ -33,13 +33,11 @@ export class AuthController {
     const { accessToken, refreshToken } = await this.authService.oAuthSignIn(data)
 
     res.cookie('access_token', accessToken, {
-      secure: true,
       httpOnly: true,
       maxAge: 10 * 60 * 1000,
     }) // Cookie valid for 10 minutes
 
     res.cookie('refresh_token', refreshToken, {
-      secure: true,
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     }) // Cookie valid for 7 days
