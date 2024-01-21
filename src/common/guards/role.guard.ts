@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core'
 import { ROLES_KEY } from '@app/common'
 import { RoleService } from '@app/role/role.service'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { Roles } from '@prisma/client'
+import { WorkspaceRoles } from '@prisma/client'
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -12,13 +12,13 @@ export class RoleGuard implements CanActivate {
     private readonly roleService: RoleService,
   ) {}
 
-  private matchRoles(roles: Roles[], userRole: Roles) {
+  private matchRoles(roles: WorkspaceRoles[], userRole: WorkspaceRoles) {
     return roles.some((role) => role === userRole)
   }
 
   public async canActivate(ctx: ExecutionContext): Promise<boolean> {
     const context = GqlExecutionContext.create(ctx)
-    const roles = this.reflector.get<Roles[]>(ROLES_KEY, context.getHandler())
+    const roles = this.reflector.get<WorkspaceRoles[]>(ROLES_KEY, context.getHandler())
 
     if (!roles) {
       return true
@@ -33,6 +33,10 @@ export class RoleGuard implements CanActivate {
     }
 
     const role = await this.roleService.get(userId, workspaceId)
+
+    if (!role) {
+      return false
+    }
 
     return this.matchRoles(roles, role.type)
   }

@@ -26,7 +26,6 @@ export class AuthResolver {
     const accessToken = await this.authService.generateToken(id, email)
 
     res.cookie('access_token', accessToken, {
-      secure: true,
       httpOnly: true,
       maxAge: 10 * 60 * 1000,
     }) // Cookie valid for 10 minutes

@@ -1,4 +1,6 @@
 export * from './tokens.schema'
+export * from './account.schema'
+export * from './workspace.schema'
 export * from './jwt-payload.schema'
 export * from './provider-payload.schema'
 export * from './response-message.schema'

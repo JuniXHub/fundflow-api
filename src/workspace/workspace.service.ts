@@ -1,21 +1,21 @@
 import { WorkspaceUpdateWithoutRolesInput } from '@app/@generated/workspace/workspace-update-without-roles.input'
-import { Workspace } from '@app/@generated/workspace/workspace.model'
+import { WorkspaceModel } from '@app/common'
 import { PrismaService } from '@app/prisma/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { Roles } from '@prisma/client'
+import { WorkspaceRoles } from '@prisma/client'
 
 @Injectable()
 export class WorkspaceService {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async create(name: string, userId: number): Promise<Workspace> {
+  public async create(name: string, userId: number): Promise<WorkspaceModel> {
     return this.prisma.workspace.create({
       data: {
         name,
         roles: {
           create: {
             userId,
-            type: Roles.OWNER,
+            type: WorkspaceRoles.OWNER,
           },
         },
       },
@@ -25,11 +25,15 @@ export class WorkspaceService {
     })
   }
 
-  public async update(data: WorkspaceUpdateWithoutRolesInput, id: number): Promise<Workspace> {
+  public async update(data: WorkspaceUpdateWithoutRolesInput, id: number): Promise<WorkspaceModel> {
     return this.prisma.workspace.update({ data, where: { id } })
   }
 
-  public async delete(id: number): Promise<Workspace> {
+  public async delete(id: number): Promise<WorkspaceModel> {
     return this.prisma.workspace.delete({ where: { id } })
+  }
+
+  public async getAll(userId: number): Promise<WorkspaceModel[]> {
+    return this.prisma.workspace.findMany({ where: { roles: { some: { userId } } } })
   }
 }

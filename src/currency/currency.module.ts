@@ -6,5 +6,6 @@ import { CurrencyResolver } from './currency.resolver'
 @Module({
   imports: [PrismaModule],
   providers: [CurrencyService, CurrencyResolver],
+  exports: [CurrencyService],
 })
 export class CurrencyModule {}
