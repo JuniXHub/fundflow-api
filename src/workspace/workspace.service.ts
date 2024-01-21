@@ -1,5 +1,5 @@
 import { WorkspaceUpdateWithoutRolesInput } from '@app/@generated/workspace/workspace-update-without-roles.input'
-import { WorkspaceModel } from '@app/common'
+import { WorkspaceModel, defaultCategories } from '@app/common'
 import { PrismaService } from '@app/prisma/prisma.service'
 import { Injectable } from '@nestjs/common'
 import { WorkspaceRoles } from '@prisma/client'
@@ -18,9 +18,19 @@ export class WorkspaceService {
             type: WorkspaceRoles.OWNER,
           },
         },
+        categories: {
+          createMany: {
+            data: defaultCategories,
+          },
+        },
       },
       include: {
         roles: true,
+        categories: {
+          include: {
+            icon: true,
+          },
+        },
       },
     })
   }

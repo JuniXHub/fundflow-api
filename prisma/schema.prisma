@@ -51,11 +51,12 @@ model User {
 }
 
 model Workspace {
-  id        Int       @id @default(autoincrement())
-  name      String
-  createdOn DateTime  @default(now())
-  roles     Role[]
-  accounts  Account[]
+  id         Int        @id @default(autoincrement())
+  name       String
+  createdOn  DateTime   @default(now())
+  roles      Role[]
+  accounts   Account[]
+  categories Category[]
 }
 
 model Role {
@@ -83,8 +84,21 @@ model Account {
 }
 
 model Icon {
-  id     Int       @id @default(autoincrement())
-  source String
-  color  String
-  type   IconTypes
+  id         Int        @id @default(autoincrement())
+  source     String
+  color      String
+  type       IconTypes
+  categories Category[]
+}
+
+model Category {
+  id          Int        @id @default(autoincrement())
+  name        String
+  workspaceId Int
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  iconId      Int
+  icon        Icon       @relation(fields: [iconId], references: [id])
+  parentId    Int?
+  parent      Category?  @relation("Parent", fields: [parentId], references: [id], onDelete: Cascade)
+  childrens   Category[] @relation("Parent")
 }
