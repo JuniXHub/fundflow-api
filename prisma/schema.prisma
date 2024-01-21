@@ -15,10 +15,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Roles {
+enum WorkspaceRoles {
   OWNER
   EDITOR
   VIEWER
+}
+
+enum AccountTypes {
+  CASH
+  CARD
+  OTHER
 }
 
 model User {
@@ -31,15 +37,16 @@ model User {
 }
 
 model Workspace {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String
-  createdOn DateTime @default(now())
+  createdOn DateTime  @default(now())
   roles     Role[]
+  accounts  Account[]
 }
 
 model Role {
   id          Int       @id @default(autoincrement())
-  type        Roles
+  type        WorkspaceRoles
   userId      Int
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   workspaceId Int
@@ -50,4 +57,13 @@ model Currency {
   num  Int    @unique
   code String @unique
   name String
+}
+
+model Account {
+  id           Int       @id @default(autoincrement())
+  balance      Int
+  currencyCode Int
+  type         AccountTypes
+  workspaceId  Int
+  workspace    Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }

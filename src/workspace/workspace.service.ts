@@ -2,7 +2,7 @@ import { WorkspaceUpdateWithoutRolesInput } from '@app/@generated/workspace/work
 import { Workspace } from '@app/@generated/workspace/workspace.model'
 import { PrismaService } from '@app/prisma/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { Roles } from '@prisma/client'
+import { WorkspaceRoles } from '@prisma/client'
 
 @Injectable()
 export class WorkspaceService {
@@ -15,7 +15,7 @@ export class WorkspaceService {
         roles: {
           create: {
             userId,
-            type: Roles.OWNER,
+            type: WorkspaceRoles.OWNER,
           },
         },
       },
