@@ -34,6 +34,10 @@ export class RoleGuard implements CanActivate {
 
     const role = await this.roleService.get(userId, workspaceId)
 
+    if (!role) {
+      return false
+    }
+
     return this.matchRoles(roles, role.type)
   }
 }
