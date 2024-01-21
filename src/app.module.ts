@@ -14,6 +14,7 @@ import { UserModule } from './user/user.module'
 import { WorkspaceModule } from './workspace/workspace.module'
 import { RoleModule } from './role/role.module'
 import { CurrencyModule } from './currency/currency.module'
+import { AccountModule } from './account/account.module'
 
 @Module({
   imports: [
@@ -61,6 +62,8 @@ import { CurrencyModule } from './currency/currency.module'
     RoleModule,
 
     CurrencyModule,
+
+    AccountModule,
   ],
   providers: [
     AppResolver,
