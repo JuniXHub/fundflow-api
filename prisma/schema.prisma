@@ -27,6 +27,20 @@ enum AccountTypes {
   OTHER
 }
 
+enum IconTypes {
+  FINANCIAL
+  LEISURE
+  EDUCATION
+  HEALTH
+  TRANSPORT_AND_TRAVEL
+  PETS_AND_KIDS
+  FOOD
+  DIGITAL
+  HOME
+  BILLS
+  OTHER
+}
+
 model User {
   id        Int     @id @default(autoincrement())
   email     String  @unique
@@ -45,12 +59,12 @@ model Workspace {
 }
 
 model Role {
-  id          Int       @id @default(autoincrement())
+  id          Int            @id @default(autoincrement())
   type        WorkspaceRoles
   userId      Int
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   workspaceId Int
-  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace   Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }
 
 model Currency {
@@ -60,10 +74,17 @@ model Currency {
 }
 
 model Account {
-  id           Int       @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   balance      Int
   currencyCode Int
   type         AccountTypes
   workspaceId  Int
-  workspace    Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace    Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Icon {
+  id     Int       @id @default(autoincrement())
+  source String
+  color  String
+  type   IconTypes
 }
