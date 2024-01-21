@@ -1,4 +1,3 @@
-import { WorkspaceRelationFilter } from '@app/@generated/workspace/workspace-relation-filter.input'
 import { WorkspaceUpdateWithoutRolesInput } from '@app/@generated/workspace/workspace-update-without-roles.input'
 import { Workspace } from '@app/@generated/workspace/workspace.model'
 import { PrismaService } from '@app/prisma/prisma.service'
