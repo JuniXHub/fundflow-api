@@ -15,6 +15,7 @@ import { WorkspaceModule } from './workspace/workspace.module'
 import { RoleModule } from './role/role.module'
 import { CurrencyModule } from './currency/currency.module'
 import { AccountModule } from './account/account.module'
+import { IconModule } from './icon/icon.module'
 
 @Module({
   imports: [
@@ -64,6 +65,8 @@ import { AccountModule } from './account/account.module'
     CurrencyModule,
 
     AccountModule,
+
+    IconModule,
   ],
   providers: [
     AppResolver,
