@@ -1,13 +1,13 @@
 import { Query, Resolver } from '@nestjs/graphql'
-import { Icon } from '@app/@generated/icon/icon.model'
+import { IconModel } from '@app/common'
 import { IconService } from './icon.service'
 
 @Resolver()
 export class IconResolver {
   constructor(private readonly iconService: IconService) {}
 
-  @Query(() => [Icon])
-  public async getCategoryIcons(): Promise<Icon[]> {
+  @Query(() => [IconModel])
+  public async getCategoryIcons(): Promise<IconModel[]> {
     return this.iconService.getAll()
   }
 }

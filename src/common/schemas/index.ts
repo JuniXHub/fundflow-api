@@ -1,3 +1,4 @@
+export * from './icon.schema'
 export * from './tokens.schema'
 export * from './account.schema'
 export * from './workspace.schema'
