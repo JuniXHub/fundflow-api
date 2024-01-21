@@ -99,6 +99,6 @@ model Category {
   iconId      Int
   icon        Icon       @relation(fields: [iconId], references: [id])
   parentId    Int?
-  parent      Category?  @relation("Parent", fields: [parentId], references: [id])
+  parent      Category?  @relation("Parent", fields: [parentId], references: [id], onDelete: Cascade)
   childrens   Category[] @relation("Parent")
 }
